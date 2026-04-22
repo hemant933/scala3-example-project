@@ -20,6 +20,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Install tree
+        run: sudo apt-get install -y tree
+
       - name: Read project structure
         id: structure
         run: |
@@ -101,9 +104,8 @@ jobs:
 
       - name: Write README file
         run: |
-          cat <<'EOF' > README.md
-          ${{ steps.ai.outputs.response }}
-          EOF
+          echo "${{ steps.ai.outputs.response }}" > README.md
+          
 
       - name: Commit README
         run: |
