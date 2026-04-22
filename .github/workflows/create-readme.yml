@@ -101,7 +101,7 @@ jobs:
 
       - name: Write README file
         run: |
-          cat <<EOF > README.md
+          cat <<'EOF' > README.md
           ${{ steps.ai.outputs.response }}
           EOF
 
