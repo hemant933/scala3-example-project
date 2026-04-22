@@ -1,0 +1,107 @@
+name: Auto Generate README
+
+on:
+  workflow_dispatch:   # manual trigger
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "pom.xml"
+
+jobs:
+  generate-readme:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      models: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Read project structure
+        id: structure
+        run: |
+          echo "PROJECT_STRUCTURE<<EOF" >> $GITHUB_OUTPUT
+          tree -L 5 >> $GITHUB_OUTPUT || ls -R >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Extract Scala + Config files
+        id: code
+        run: |
+          echo "CODE_CONTENT<<EOF" >> $GITHUB_OUTPUT
+          find src -name "*.scala" -o -name "*.properties" | xargs cat >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Run AI to generate README
+        id: ai
+        uses: actions/ai-inference@v1
+        with:
+          model: gpt-4.1
+          prompt: |
+            You are an expert Spark Data Engineering documentation specialist.
+
+            Generate a comprehensive README.md for this Spark/Scala ETL project.
+
+            ========================
+            PROJECT STRUCTURE:
+            ========================
+            ${{ steps.structure.outputs.PROJECT_STRUCTURE }}
+
+            ========================
+            SOURCE CODE:
+            ========================
+            ${{ steps.code.outputs.CODE_CONTENT }}
+
+            ========================
+            REQUIREMENTS:
+            ========================
+            Follow this exact structure:
+
+            1. Project Overview
+            - Tech stack (Scala, Spark, Maven)
+            - Features
+
+            2. Project Structure
+            - Directory explanation
+
+            3. Data Flow Diagram
+            - ASCII diagram (SOURCE → TRANSFORM → TARGET)
+            - Include joins, unions, keys
+
+            4. Source Tables
+            - Extract from spark.read / spark.sql
+
+            5. Transformations
+            - Joins, filters, business logic
+
+            6. Target Tables
+            - Write mode
+
+            7. Field Mapping
+
+            8. Module Documentation
+            - Each Scala file purpose
+
+            9. Configuration
+            - Explain properties files
+
+            10. Usage
+            - Maven + spark-submit
+
+            11. Testing
+
+            Use professional formatting with tables and sections.
+
+      - name: Write README file
+        run: |
+          echo "${{ steps.ai.outputs.response }}" > README.md
+
+      - name: Commit README
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Auto-generate README" || echo "No changes"
+          git push
