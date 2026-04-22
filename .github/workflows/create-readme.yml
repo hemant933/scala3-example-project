@@ -104,8 +104,12 @@ jobs:
 
       - name: Write README file
         run: |
-          echo "${{ steps.ai.outputs.response }}" | base64 > readme.b64
-          base64 -d readme.b64 > README.md
+           printf "%s" "$AI_OUTPUT" \
+           | sed '1s/^```markdown//' \
+           | sed '$s/```$//' \
+           > README.md
+        env:
+          AI_OUTPUT: ${{ steps.ai.outputs.response }}
           
 
       - name: Commit README
