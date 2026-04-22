@@ -104,7 +104,7 @@ jobs:
 
       - name: Write README file
         run: |
-          echo "${{ steps.ai.outputs.response }}" > README.md
+          printf "%s" "${{ steps.ai.outputs.response }}" > README.md
           
 
       - name: Commit README
