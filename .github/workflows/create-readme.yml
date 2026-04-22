@@ -23,13 +23,18 @@ jobs:
       - name: Read project structure
         id: structure
         run: |
-          echo "PROJECT_STRUCTURE<<EOF" >> $GITHUB_OUTPUT
-          tree -L 5 >> $GITHUB_OUTPUT || ls -R >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+           echo "===== PROJECT STRUCTURE ====="
+           tree -L 5 || ls -R
 
+           echo "PROJECT_STRUCTURE<<EOF" >> $GITHUB_OUTPUT
+           tree -L 5 >> $GITHUB_OUTPUT || ls -R >> $GITHUB_OUTPUT
+           echo "EOF" >> $GITHUB_OUTPUT
+  
       - name: Extract Scala + Config files
         id: code
         run: |
+          echo "CODE_CONTENT<<EOF" >> $GITHUB_OUTPUT
+          find src -name "*.scala" -o -name "*.properties" | head -5
           echo "CODE_CONTENT<<EOF" >> $GITHUB_OUTPUT
           find src -name "*.scala" -o -name "*.properties" | xargs cat >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
