@@ -1,30 +1,32 @@
-
-# Spark/Scala ETL Project
+```markdown
+# Scala 3 Spark Data Engineering Showcase
 
 ---
 
 ## 1. Project Overview
 
-**Tech Stack**  
-| Component | Description              |
-|-----------|--------------------------|
-| Scala     | Core development language (Scala 3) |
-| Apache Spark | Distributed SQL & Data Processing |
-| sbt       | Build, dependency management         |
-| Maven     | Compatible for Spark-submit packaging|
+### Tech Stack
 
-**Features**
-- Modular ETL patterns in Scala 3, utilizing Spark APIs
-- Demonstrates advanced Scala language features:
-  - Pattern Matching, Enum Types, Trait Parameters, Structural Types, Union/Intersection Types, Type Lambdas, Context Functions, Multiversal Equality, Parameter Untupling, Conversions
-- End-to-end data flow: structured extraction, transformation, and loading
-- Test coverage for key transformation logic
-- Clean separation of concerns and reusable components
+| Component    | Version/Technology         |
+|--------------|---------------------------|
+| Scala        | 3.x                       |
+| Spark        | 3.x (integrated/compatible)|
+| Build Tool   | sbt                       |
+| Test Framework | [MUnit](https://scalameta.org/munit/)|
+| JVM          | 8+                        |
 
----
+### Features
 
-## 2. Project Structure
-
-| Path                            | Purpose                                      |
-|----------------------------------|----------------------------------------------|
-| `LICENSE
+- Illustrates key Scala 3 features for data engineering:
+  - Trait Parameters
+  - Enum Types (Algebraic Data Types)
+  - Context Functions and Implied Instances
+  - Conversions
+  - Union and Intersection Types
+  - Multiversal Equality
+  - Parameter Untupling
+  - Structural Types
+  - Type Lambdas
+  - Pattern Matching (improved in Scala 3)
+- Modular design for extensibility and demonstration
+- Included unit tests
