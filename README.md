@@ -1,20 +1,31 @@
 ```markdown
-# Spark/Scala ETL Project
+# Spark Scala ETL Project
+
+---
 
 ## 1. Project Overview
 
-This project demonstrates a modern ETL (Extract-Transform-Load) pipeline using **Scala 3**, **Apache Spark**, and **Maven** (as the build manager, the project uses `build.sbt` compatible with Maven repositories via SBT). It showcases advanced features of Scala 3—such as enums, context functions, union/intersection types, structural types, and more—for robust, type-safe data engineering on Spark.
+This project demonstrates advanced Scala 3 features within a Spark-based ETL framework, showcasing modern language capabilities for robust data processing. Designed for modularity and clarity, it combines:
 
-### Tech Stack
+| Component | Technology                 |
+|-----------|----------------------------|
+| Language  | Scala 3                    |
+| Engine    | Apache Spark (Structured)  |
+| Build     | SBT (Scala Build Tool)     |
+| Testing   | MUnit                      |
 
-| Component      | Version/Type       |
-|:--------------:|:------------------:|
-| Scala          | 3.x (Dotty)        |
-| Apache Spark   | 3.x                |
-| SBT/Maven      | SBT (cross-compatible) |
-| Testing        | MUnit              |
+**Key Features:**
+- Modular ETL pipeline
+- Demonstrations of Scala 3 paradigms (enums, union/intersection types, context functions)
+- Extensible transformation logic
+- Type-safe conversions
+- Comprehensive unit tests
 
-### Features
+---
 
-- **Advanced Scala 3 features** for expressive, type-safe ETL logic
-- Modular transformations, pattern matching
+## 2. Project Structure
+
+| Path                   | Description                                         |
+|------------------------|-----------------------------------------------------|
+| `build.sbt`            | SBT project definition and dependencies             |
+| `project/build.properties` | S
